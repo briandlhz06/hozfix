@@ -25,6 +25,9 @@ Varios SSH se juntan en un drop-in. NET-004 + DB-002 se deduplican. FW-003 + AUT
 ```bash
 python -m hoztage --json reporte.json
 python -m hozfix --from-json reporte.json --md fixes.md --sh fix.sh
+# despues de dejar el VPS sano:
+python -m parole init
+python -m parole check
 ```
 
 [`examples/sample-fixes.md`](examples/sample-fixes.md) - input: [`examples/sample-input.json`](examples/sample-input.json)
