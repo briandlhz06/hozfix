@@ -1,0 +1,140 @@
+{
+  "hostname": "cliente-wp-07",
+  "generated_at": "2026-07-28T14:22:11Z",
+  "platform": "Linux-5.15.0-119-generic-x86_64-with-glibc2.35",
+  "counts": {
+    "critical": 2,
+    "high": 5,
+    "medium": 3,
+    "info": 4,
+    "skip": 0
+  },
+  "findings": [
+    {
+      "id": "HOZ-HOST-001",
+      "area": "host",
+      "title": "Identidad del host",
+      "severity": "info",
+      "hallazgo": "cliente-wp-07, kernel 5.15.0-119-generic, up 87 days",
+      "evidencia": "NAME=\"Ubuntu\"\nVERSION=\"22.04.5 LTS\"",
+      "consejo": ""
+    },
+    {
+      "id": "HOZ-NET-004",
+      "area": "net",
+      "title": "MariaDB/MySQL expuesto públicamente",
+      "severity": "high",
+      "hallazgo": "MariaDB/MySQL escucha en 0.0.0.0:3306 (mysqld).",
+      "evidencia": "tcp   LISTEN 0      80     0.0.0.0:3306       0.0.0.0:*    users:((\"mysqld\",pid=991,fd=21))",
+      "consejo": "No publiques 3306 a Internet; bind a localhost o filtrá el puerto."
+    },
+    {
+      "id": "HOZ-NET-011",
+      "area": "net",
+      "title": "Servicio en 8080 expuesto públicamente",
+      "severity": "medium",
+      "hallazgo": "Servicio en 8080 escucha en 0.0.0.0:8080 (php).",
+      "evidencia": "0.0.0.0:8080 LISTEN php",
+      "consejo": "Fijate qué corre ahí antes de asustarte."
+    },
+    {
+      "id": "HOZ-SSH-001",
+      "area": "ssh",
+      "title": "Root por SSH con password posible",
+      "severity": "critical",
+      "hallazgo": "PermitRootLogin yes.",
+      "evidencia": "permitrootlogin yes",
+      "consejo": "Poné PermitRootLogin no y entrá con un usuario con sudo."
+    },
+    {
+      "id": "HOZ-SSH-002",
+      "area": "ssh",
+      "title": "Login SSH con password",
+      "severity": "high",
+      "hallazgo": "PasswordAuthentication yes.",
+      "evidencia": "",
+      "consejo": "Cuando tengas keys cargadas, deshabilitá PasswordAuthentication."
+    },
+    {
+      "id": "HOZ-SSH-005",
+      "area": "ssh",
+      "title": "Puerto SSH",
+      "severity": "info",
+      "hallazgo": "Port 22.",
+      "evidencia": "",
+      "consejo": ""
+    },
+    {
+      "id": "HOZ-USR-004",
+      "area": "users",
+      "title": "NOPASSWD en sudoers",
+      "severity": "high",
+      "hallazgo": "1 línea(s) con NOPASSWD.",
+      "evidencia": "deploy ALL=(ALL) NOPASSWD: ALL",
+      "consejo": "Revisá si hace falta. NOPASSWD amplio huele mal."
+    },
+    {
+      "id": "HOZ-FW-001",
+      "area": "firewall",
+      "title": "UFW inactivo",
+      "severity": "high",
+      "hallazgo": "UFW está instalado pero inactive.",
+      "evidencia": "Status: inactive",
+      "consejo": "Activá UFW o asegurate de tener iptables/nft con política clara."
+    },
+    {
+      "id": "HOZ-FW-003",
+      "area": "firewall",
+      "title": "fail2ban ausente",
+      "severity": "medium",
+      "hallazgo": "No encontré fail2ban.",
+      "evidencia": "",
+      "consejo": "Instalalo, aunque sea jail sshd."
+    },
+    {
+      "id": "HOZ-DB-002",
+      "area": "db",
+      "title": "MySQL bind público en config",
+      "severity": "high",
+      "hallazgo": "bind-address = 0.0.0.0",
+      "evidencia": "/etc/mysql/mysql.conf.d/mysqld.cnf",
+      "consejo": "Poné bind-address = 127.0.0.1 si no necesita red externa."
+    },
+    {
+      "id": "HOZ-WEB-001",
+      "area": "web",
+      "title": ".env legible en docroot",
+      "severity": "critical",
+      "hallazgo": "/var/www/html/.env es legible por otros (0o644).",
+      "evidencia": "/var/www/html/.env 0o644",
+      "consejo": "Sacá el .env del docroot o permisos 600 y fuera de la web."
+    },
+    {
+      "id": "HOZ-WEB-101",
+      "area": "web",
+      "title": "wp-config.php con permisos flojos",
+      "severity": "high",
+      "hallazgo": "/var/www/html/wp-config.php mode 0o664.",
+      "evidencia": "/var/www/html/wp-config.php",
+      "consejo": "chmod 640 o más estricto; dueño www-data/root según tu setup."
+    },
+    {
+      "id": "HOZ-UPD-002",
+      "area": "updates",
+      "title": "Reboot pendiente",
+      "severity": "medium",
+      "hallazgo": "Existe /var/run/reboot-required.",
+      "evidencia": "linux-image-5.15.0-119-generic\nlinux-base",
+      "consejo": "Agendá reboot cuando puedas."
+    },
+    {
+      "id": "HOZ-DOCK-010",
+      "area": "docker",
+      "title": "Publish en 0.0.0.0",
+      "severity": "medium",
+      "hallazgo": "Hay puertos Docker publicados a interfaces públicas.",
+      "evidencia": "mailcowdockerized-nginx-mailcow-1\tmailcow/nginx:1.0\t0.0.0.0:8081->80/tcp\tUp 3 weeks",
+      "consejo": "Revisá si realmente tienen que estar abiertos a internet."
+    }
+  ]
+}
