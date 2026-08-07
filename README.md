@@ -36,4 +36,4 @@ python -m parole check
 
 `0` ok. `1` error de lectura. `2` mal uso de CLI.
 
-MIT
+MIT - [Brian De La Hoz](https://briandlhz.space)
